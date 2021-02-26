@@ -4,7 +4,7 @@ let execCount = 0;  //только для логирования
 
 class Future {
   constructor(executor) {
-    console.log('Создается новый F');
+    console.log('Создается новый F');  //только для логирования
     execCount++;  //только для логирования
     const executorBody = executor.toString(); //только для логирования
     console.log({ execCount, executorBody }); //только для логирования
@@ -20,16 +20,16 @@ class Future {
   }
 
   chain(fn) {
-    console.log('Вызывается chain, номер F:', this.number);
+    console.log('Вызывается chain, номер F:', this.number);  //только для логирования
     return new Future((resolve, reject) => {
       this.fork(
         value => {
-          const resolveBody = resolve.toString();
+          const resolveBody = resolve.toString(); //только для логирования
           console.log('Вызывается resolve, номер F:', this.number, { value }, { resolveBody }); //только для логирования
           return fn(value).fork(resolve, reject);
         },
         error => {
-          const rejectBody = reject.toString();
+          const rejectBody = reject.toString();  //только для логирования
           console.log('Вызывается reject, номер F:', this.number, error.message, { rejectBody });  //только для логирования
           reject(error);
         }
